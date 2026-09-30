@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudentCabinet.ViewModels"
+             xmlns:conv="clr-namespace:StudentCabinet.Converters"
+             x:Class="StudentCabinet.MainPage">
+
+    <ContentPage.Resources>
+        <conv:BoolToColorConverter x:Key="BoolToColor" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Entry Text="{Binding FullName, Mode=TwoWay}" Placeholder="ПІБ студента" />
+            <Entry Text="{Binding Group, Mode=TwoWay}" Placeholder="Група" />
+            <Entry Text="{Binding AverageScore, Mode=TwoWay}" Placeholder="Середній бал" Keyboard="Numeric" />
+
+            <Label Text="{Binding FullName, StringFormat='Студент: {0}'}" FontSize="18" />
+            <Label Text="{Binding Group, StringFormat='Група: {0}'}" FontSize="16" />
+            <Label Text="{Binding AverageScore, StringFormat='Середній бал: {0:F2}'}"
+                   FontSize="16"
+                   TextColor="{Binding IsExcellent, Converter={StaticResource BoolToColor}}" />
+
+            <Button Text="Додати студента" Command="{Binding AddStudentCommand}" />
+
+            <CollectionView ItemsSource="{Binding Students}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,4" Padding="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="{Binding FullName}" FontAttributes="Bold" />
+                                    <Label Text="{Binding Group, StringFormat='Група: {0}'}" />
+                                    <Label Text="{Binding AverageScore, StringFormat='Бал: {0:F2}'}" />
+                                </VerticalStackLayout>
+
+                                <Button Grid.Column="1"
+                                        Text="Детальніше"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StudentViewModel}}, Path=OpenDetailsCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

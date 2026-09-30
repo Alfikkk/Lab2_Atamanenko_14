@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudentCabinet.ViewModels"
+             x:Class="StudentCabinet.Views.StudentDetailPage"
+             Title="Деталі студента">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Деталі студента"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Label Text="{Binding FullName, StringFormat='ПІБ: {0}'}" FontSize="18" />
+            <Label Text="{Binding Group, StringFormat='Група: {0}'}" FontSize="16" />
+
+            <Label Text="Середній бал:" FontSize="16" />
+            <Entry Text="{Binding AverageScore, Mode=TwoWay}"
+                   Keyboard="Numeric"
+                   Placeholder="Введіть бал" />
+
+            <Button Text="Зберегти"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="#512BD4"
+                    TextColor="White" />
+
+            <Button Text="Назад"
+                    Command="{Binding GoBackCommand}"
+                    BackgroundColor="Gray"
+                    TextColor="White" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
